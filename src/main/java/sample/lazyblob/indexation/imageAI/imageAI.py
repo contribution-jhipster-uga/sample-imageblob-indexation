@@ -1,10 +1,14 @@
-from imageai.Detection import ObjectDetection
+#from imageai.Detection import ObjectDetection
 import os
+import sys
 import numpy as np
+
+if len(sys.argv) != 2:
+    raise Exception('Invalid number of arguments. 1 argument is required.')
 
 
 execution_path = os.getcwd()
-im_name = 'jurassic_park.png'
+im_name = str(sys.argv[1])
 nn_name = 'resnet50_coco_best_v2.0.1.h5'
 threshold = 75
 
