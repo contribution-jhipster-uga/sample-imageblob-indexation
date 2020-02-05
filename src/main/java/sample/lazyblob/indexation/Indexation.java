@@ -1,4 +1,4 @@
-package sample.lazyblob.indexation.imageAI;
+package sample.lazyblob.indexation;
 
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
