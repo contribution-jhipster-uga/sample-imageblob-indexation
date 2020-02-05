@@ -1,5 +1,6 @@
 package sample.lazyblob.service.impl;
 
+import sample.lazyblob.indexation.Indexation;
 import sample.lazyblob.service.PhotoService;
 import sample.lazyblob.domain.Photo;
 import sample.lazyblob.repository.PhotoRepository;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.Optional;
 
 /**
@@ -43,6 +45,15 @@ public class PhotoServiceImpl implements PhotoService {
     public PhotoDTO save(PhotoDTO photoDTO) {
         log.debug("Request to save Photo : {}", photoDTO);
         Photo photo = photoMapper.toEntity(photoDTO);
+        try {
+            System.out.println("-------------------------------------------------------------");
+            String filename = Indexation.createImagefromByteArray(photo.getImage());
+            photo.setDetectedObjects(Indexation.imageAI(filename));
+            System.out.println(photo.getDetectedObjects());
+            System.out.println("-------------------------------------------------------------");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         photo = photoRepository.save(photo);
         return photoMapper.toDto(photo);
     }

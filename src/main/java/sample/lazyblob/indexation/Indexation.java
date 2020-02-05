@@ -8,6 +8,8 @@ import org.apache.tika.parser.ocr.TesseractOCRParser;
 import org.apache.tika.sax.BodyContentHandler;
 import org.xml.sax.SAXException;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
@@ -48,7 +50,7 @@ public class Indexation {
 
     public static String imageAI(String pathImg) throws Exception {
 
-        String script = "src/imageAI.py ";
+        String script = "src/main/java/sample/lazyblob/indexation/imageAI/imageAI.py ";
         String commandToExecute = "python3 " + script + pathImg;
         String res = "";
         int error = -1;
@@ -81,5 +83,14 @@ public class Indexation {
         }
 
         return res;
+    }
+
+    public static String createImagefromByteArray(byte[] data) throws IOException {
+        ByteArrayInputStream bis = new ByteArrayInputStream(data);
+        BufferedImage bImage2 = ImageIO.read(bis);
+        File f = new File("src/main/java/sample/lazyblob/indexation/tampon.jpg");
+        ImageIO.write(bImage2, "jpg",f);
+        System.out.println("image created");
+        return f.getPath();
     }
 }
