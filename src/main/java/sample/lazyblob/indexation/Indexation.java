@@ -14,6 +14,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 public class Indexation {
+
     public static String parseMetadata(String filename) {
         AutoDetectParser parser = new AutoDetectParser();
         BodyContentHandler handler = new BodyContentHandler();
@@ -46,7 +47,6 @@ public class Indexation {
         }
         return result;
     }
-
 
     public static String imageAI(String pathImg) throws Exception {
 
@@ -89,6 +89,7 @@ public class Indexation {
         ByteArrayInputStream bis = new ByteArrayInputStream(data);
         BufferedImage bImage2 = ImageIO.read(bis);
         File f = new File("src/main/java/sample/lazyblob/indexation/tampon.jpg");
+        System.out.println(f);
         ImageIO.write(bImage2, "jpg",f);
         System.out.println("image created");
         return f.getPath();
