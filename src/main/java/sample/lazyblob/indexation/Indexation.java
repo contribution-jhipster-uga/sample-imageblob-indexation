@@ -46,8 +46,8 @@ public class Indexation {
 
     public static String imageAI(String pathImg) throws Exception {
 
-        String script = "src\\main\\java\\sample\\lazyblob\\indexation\\imageAI\\imageAI.py ";
-        String commandToExecute = "python " + script + pathImg;
+        String script = "src/main/java/sample/lazyblob/indexation/imageAI/imageAI.py ";
+        String commandToExecute = "python3 " + script + pathImg;
         String res = "";
         int error = -1;
 
