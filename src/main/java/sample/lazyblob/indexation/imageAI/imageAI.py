@@ -6,10 +6,10 @@ import numpy as np
 if len(sys.argv) != 2:
     raise Exception('Invalid number of arguments. 1 argument is required.')
 
-temp_path = str(sys.argv[0]).split("/")
-execution_path = '/'.join(temp_path[:-1])
+temp_path = str(sys.argv[0]).split("\\")
+execution_path = '\\'.join(temp_path[:-1])
 if execution_path:
-    execution_path += str('/')
+    execution_path += str('\\')
 
 im_name = str(sys.argv[1])
 nn_name = 'resnet50_coco_best_v2.0.1.h5'

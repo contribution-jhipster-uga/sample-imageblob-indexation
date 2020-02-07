@@ -48,8 +48,8 @@ public class PhotoServiceImpl implements PhotoService {
         try {
             System.out.println("-------------------------------------------------------------");
             String filename = Indexation.createImagefromByteArray(photo.getImage());
-            photo.setDetectedObjects(Indexation.imageAI(filename));
-            System.out.println(photo.getDetectedObjects());
+            photo.setExif(Indexation.parseMetadata(filename));
+            System.out.println(photo.getExif());
             System.out.println("-------------------------------------------------------------");
         } catch (Exception e) {
             e.printStackTrace();
