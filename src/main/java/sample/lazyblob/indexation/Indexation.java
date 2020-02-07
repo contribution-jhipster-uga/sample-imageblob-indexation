@@ -51,7 +51,7 @@ public class Indexation {
 
         TesseractOCRConfig tesserConfig = new TesseractOCRConfig();
         tesserConfig.setLanguage("fra");
-        tesserConfig.setTesseractPath("C:\\Program Files\\Tesseract-OCR");
+        tesserConfig.setTesseractPath(tesserConfig.getTesseractPath());
 
         parsecontext.set(Parser.class, parser);
         parsecontext.set(PDFParserConfig.class, pdfConfig);
