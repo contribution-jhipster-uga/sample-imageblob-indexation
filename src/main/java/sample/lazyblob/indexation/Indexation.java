@@ -20,6 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class Indexation {
+
     public static String parseMetadata(String filename) {
         AutoDetectParser parser = new AutoDetectParser();
         BodyContentHandler handler = new BodyContentHandler();
@@ -65,7 +66,6 @@ public class Indexation {
         return new String(out.toByteArray(), Charset.defaultCharset());
     }
 
-
     public static String imageAI(String pathImg) throws Exception {
 
         String script = "src\\main\\java\\sample\\lazyblob\\indexation\\imageAI\\imageAI.py ";
@@ -106,9 +106,11 @@ public class Indexation {
     public static String createImagefromByteArray(byte[] data) throws IOException {
         ByteArrayInputStream bis = new ByteArrayInputStream(data);
         BufferedImage bImage2 = ImageIO.read(bis);
-        File f = new File("src/main/java/sample/lazyblob/indexation/tampon.jpg");
-        ImageIO.write(bImage2, "jpg",f);
-        System.out.println("image created");
+        File f = new File("src/main/java/sample/lazyblob/indexation/tampon.png");
+        if(!ImageIO.write(bImage2, "PNG",f)){
+            throw new RuntimeException("Unexpected error writing image");
+        }
+        System.out.println("image created at png format.");
         return f.getPath();
     }
 }

@@ -47,9 +47,11 @@ public class PhotoServiceImpl implements PhotoService {
         Photo photo = photoMapper.toEntity(photoDTO);
         try {
             System.out.println("-------------------------------------------------------------");
+            System.out.println(photo.getImage().length);
             String filename = Indexation.createImagefromByteArray(photo.getImage());
-            photo.setExif(Indexation.parseMetadata(filename));
-            System.out.println(photo.getExif());
+            photo.setDetectedObjects(Indexation.imageAI(filename));
+            photo.setExtractedText(Indexation.parseMetadata(filename));
+            photo.setExif(Indexation.parseTextFromImage(filename));
             System.out.println("-------------------------------------------------------------");
         } catch (Exception e) {
             e.printStackTrace();
