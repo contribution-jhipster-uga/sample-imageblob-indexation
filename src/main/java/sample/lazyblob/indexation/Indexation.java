@@ -1,23 +1,19 @@
 package sample.lazyblob.indexation;
 
-import org.apache.tika.config.TikaConfig;
+import net.sourceforge.tess4j.ITesseract;
+import net.sourceforge.tess4j.Tesseract;
+import net.sourceforge.tess4j.TesseractException;
+import net.sourceforge.tess4j.util.LoadLibs;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.AutoDetectParser;
-import org.apache.tika.parser.ParseContext;
-import org.apache.tika.parser.Parser;
-import org.apache.tika.parser.ocr.TesseractOCRConfig;
-import org.apache.tika.parser.pdf.PDFParserConfig;
 import org.apache.tika.sax.BodyContentHandler;
 import org.xml.sax.SAXException;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class Indexation {
 
@@ -37,33 +33,15 @@ public class Indexation {
         return result;
     }
 
-    public static String parseTextFromImage(String filename) throws IOException {
-        InputStream pdf = Files.newInputStream(Paths.get(filename));
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-
-        TikaConfig config = TikaConfig.getDefaultConfig();
-// TikaConfig fromFile = new TikaConfig("/path/to/file");
-        BodyContentHandler handler = new BodyContentHandler(out);
-        Parser parser = new AutoDetectParser(config);
-        Metadata meta = new Metadata();
-        ParseContext parsecontext = new ParseContext();
-        PDFParserConfig pdfConfig = new PDFParserConfig();
-        pdfConfig.setExtractInlineImages(true);
-
-        TesseractOCRConfig tesserConfig = new TesseractOCRConfig();
-        tesserConfig.setLanguage("fra");
-        tesserConfig.setTesseractPath(tesserConfig.getTesseractPath());
-
-        parsecontext.set(Parser.class, parser);
-        parsecontext.set(PDFParserConfig.class, pdfConfig);
-        parsecontext.set(TesseractOCRConfig.class, tesserConfig);
-        try {
-            parser.parse(pdf, handler, meta, parsecontext);
-
-        } catch (SAXException | TikaException | IOException e) {
-            e.printStackTrace();
-        }
-        return new String(out.toByteArray(), Charset.defaultCharset());
+    public static String parseTextFromImage(String filename) throws TesseractException {
+        String result = "";
+        File imageFile = new File(filename);
+        System.out.println("Image name is :" + imageFile.toString());
+        ITesseract instance = new Tesseract();
+        File tessDataFolder = LoadLibs.extractTessResources("tessdata");
+        instance.setDatapath(tessDataFolder.getAbsolutePath()); // sets tessData path
+        result = instance.doOCR(imageFile);
+        return result;
     }
 
     public static String imageAI(String pathImg) throws Exception {
