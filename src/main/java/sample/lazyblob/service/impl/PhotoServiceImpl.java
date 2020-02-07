@@ -50,8 +50,8 @@ public class PhotoServiceImpl implements PhotoService {
             System.out.println(photo.getImage().length);
             String filename = Indexation.createImagefromByteArray(photo.getImage());
             photo.setDetectedObjects(Indexation.imageAI(filename));
-            photo.setExtractedText(Indexation.parseMetadata(filename));
-            photo.setExif(Indexation.parseTextFromImage(filename));
+            photo.setExif(Indexation.parseMetadata(filename));
+            photo.setExtractedText(Indexation.parseTextFromImage(filename));
             System.out.println("-------------------------------------------------------------");
         } catch (Exception e) {
             e.printStackTrace();
