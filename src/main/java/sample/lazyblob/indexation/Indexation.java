@@ -88,10 +88,11 @@ public class Indexation {
     public static String createImagefromByteArray(byte[] data) throws IOException {
         ByteArrayInputStream bis = new ByteArrayInputStream(data);
         BufferedImage bImage2 = ImageIO.read(bis);
-        File f = new File("src/main/java/sample/lazyblob/indexation/tampon.jpg");
-        System.out.println(f);
-        ImageIO.write(bImage2, "jpg",f);
-        System.out.println("image created");
+        File f = new File("src/main/java/sample/lazyblob/indexation/tampon.png");
+        if(!ImageIO.write(bImage2, "PNG",f)){
+            throw new RuntimeException("Unexpected error writing image");
+        }
+        System.out.println("image created at png format.");
         return f.getPath();
     }
 }
