@@ -39,7 +39,8 @@ public class Indexation {
         System.out.println("Image name is :" + imageFile.toString());
         ITesseract instance = new Tesseract();
         File tessDataFolder = LoadLibs.extractTessResources("tessdata");
-        instance.setDatapath(tessDataFolder.getAbsolutePath()); // sets tessData path
+        System.out.println(tessDataFolder.getAbsolutePath());
+        instance.setDatapath("src/main/java/sample/lazyblob/indexation/tessdata"); // sets tessData path
         result = instance.doOCR(imageFile);
         return result;
     }
